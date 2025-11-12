@@ -1,0 +1,49 @@
+{% extends "admin/challenges/update.html" %}
+
+{% block header %}
+<div class="alert alert-secondary" role="alert">
+	Sub Question Challenges are a type of challenge that allows you to create a challenge with multiple questions and flags.<br>
+	Each question is worth a certain number of points, and the challenge is considered solved when all questions are answered correctly.<br>
+	You can also set a maximum number of attempts for each question.<br>
+	By HITCON ReCTF Team.
+</div>
+{% endblock %}
+
+{% block connection_info %}
+<div class="form-group">
+	<label for="connection_info">Connection Info</label>
+	<textarea class="form-control" name="connection_info" rows="3" placeholder="Connection information (optional)">{{ challenge.connection_info | default('', true) }}</textarea>
+</div>
+{% endblock %}
+
+{% block max_attempts %}
+<div class="form-group">
+	<label for="max_attempts">Max Attempts</label>
+	<input type="number" class="form-control" name="max_attempts" value="{{ challenge.max_attempts | default(0, true) }}" placeholder="0 for unlimited">
+</div>
+{% endblock %}
+
+{% block value %}
+<!-- Multi Question Section -->
+<div class="card">
+	<div class="card-header">
+		<h5 class="card-title">Questions & Flags</h5>
+	</div>
+	<div class="card-body">
+		<div id="questions-container">
+			<!-- Existing questions will be populated by JavaScript -->
+		</div>
+		<button type="button" class="btn btn-success" id="add-question">Add Question</button>
+	</div>
+</div>
+{% endblock %}
+
+{% block state %}
+<div class="form-group">
+	<label for="state">State</label>
+	<select class="form-control" name="state">
+		<option value="visible" {% if challenge.state == "visible" %}selected{% endif %}>Visible</option>
+		<option value="hidden" {% if challenge.state == "hidden" %}selected{% endif %}>Hidden</option>
+	</select>
+</div>
+{% endblock %} 
